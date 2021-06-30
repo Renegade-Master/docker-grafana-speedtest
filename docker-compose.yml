@@ -1,0 +1,30 @@
+version: "3.6"
+services:
+#  redis-db:
+#    build:
+#      dockerfile: Docker/redis.Dockerfile
+#      context: .
+#    networks:
+#      grafana-redis-net:
+#
+#  grafana-dash:
+#    build:
+#      dockerfile: Docker/grafana.Dockerfile
+#      context: .
+#    networks:
+#      grafana-redis-net:
+#      grafana-expose:
+
+  speedtest:
+    build:
+      context: ./src/speedtest
+      dockerfile: speedtest.Dockerfile
+    networks:
+      speedtest-redis-net:
+
+networks:
+  grafana-redis-net:
+
+  speedtest-redis-net:
+
+  grafana-expose:
