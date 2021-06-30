@@ -6,6 +6,15 @@
 #       to a Redis Database.
 #######################################################################
 
+# Test the DB connection
+function test_db_connection() {
+    printf "\n-- Testing DB Connection...\n"
+
+    redis-cli -h "redis-db" ping
+
+    printf "\n-- Connection Successful.\n"
+}
+
 # Run the speedtest, storing the file for later use
 function run_speedtest() {
     printf "\n-- Running Speedtest...\n"
@@ -32,3 +41,4 @@ function create_variables() {
 ## Main
 create_variables
 run_speedtest
+test_db_connection

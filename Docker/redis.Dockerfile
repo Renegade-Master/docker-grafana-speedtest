@@ -1,1 +1,1 @@
-FROM redis:alpine
+FROM redis:alpine as run
