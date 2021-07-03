@@ -1,4 +1,4 @@
-# docker-grafana-speedtest
+# Docker Grafana Speedtest
 
 ## Description
 
@@ -17,7 +17,7 @@ there is no reason why it cannot run anywhere else.
   ![](./img/InternetHealthCheck%20-%20Grafana.png "Dashboard Example 1")
 
 - Database
-  
+
   ```
              timestamp           |      download      |       upload       |  ping   | bytes_sent | bytes_received |                      share
   -------------------------------+--------------------+--------------------+---------+------------+----------------+-------------------------------------------------
