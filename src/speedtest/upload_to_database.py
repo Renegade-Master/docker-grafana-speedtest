@@ -4,17 +4,19 @@
 #   Description:
 #       Script to upload a JSON file to a Postgres Database.
 #######################################################################
+import sys
 from json import load
 from sys import exit
 from psycopg2 import connect, Error
 from datetime import datetime
 
 
-def upload_to_postgres() -> None:
+def upload_to_postgres(filename: str) -> None:
     """
-    Uploads a JSON file to a Postgres DB.
+    Upload a JSON file to a Postgres DB.
 
-    :return:
+    :param filename: The path of the JSON results file to load
+    :return: None
     """
 
     # Postgres table name
@@ -23,7 +25,7 @@ def upload_to_postgres() -> None:
     print("\ntable name for JSON data:", table_name)
 
     # use Python's open() function to load the JSON data
-    with open('/app/results/speedtest_result.json') as json_data:
+    with open(filename) as json_data:
         # use load() rather than loads() for JSON files
         record_list = load(json_data)
 
@@ -120,4 +122,6 @@ if __name__ == "__main__":
     Main method
     """
 
-    upload_to_postgres()
+    filename: str = sys.argv[1]
+
+    upload_to_postgres(filename)

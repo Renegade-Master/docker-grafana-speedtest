@@ -21,18 +21,9 @@ function cleanup() {
 function upload_result_to_db() {
     printf "\n-- Uploading result...\n"
 
-    python3 /app/upload_to_database.py
+    python3 /app/upload_to_database.py "$OUTPUT_FILE"
 
     printf "\n-- Upload Successful.\n"
-}
-
-
-function test_db_connection() {
-    printf "\n-- Testing DB Connection...\n"
-
-    redis-cli -h "redis-db" ping
-
-    printf "\n-- Connection Successful.\n"
 }
 
 
@@ -54,7 +45,8 @@ function format_results() {
 function run_speedtest() {
     printf "\n-- Running Speedtest...\n"
 
-    speedtest --server 38092 --secure --share --json > "$OUTPUT_FILE.raw"
+    # speedtest --server 38092 --secure --share --json > "$OUTPUT_FILE.raw"
+    speedtest --secure --share --json > "$OUTPUT_FILE.raw"
 
     printf "\n-- Speedtest complete.\n"
 }
@@ -79,6 +71,5 @@ function create_variables() {
 create_variables
 run_speedtest
 format_results
-test_db_connection
 upload_result_to_db
 cleanup
