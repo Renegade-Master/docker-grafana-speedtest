@@ -1,31 +1,38 @@
 version: "3.6"
 services:
-  redis-db:
+  postgres-db:
     build:
-      dockerfile: Docker/redis.Dockerfile
-      context: .
+      context: ./src/database
+      dockerfile: ./postgres.Dockerfile
+    env_file:
+      - ./src/database/.env
+    volumes:
+      - postgres:/var/lib/postgresql/data/
     networks:
-      grafana-redis-net:
-      speedtest-redis-net:
-#
-#  grafana-dash:
-#    build:
-#      dockerfile: Docker/grafana.Dockerfile
-#      context: .
-#    networks:
-#      grafana-redis-net:
-#      grafana-expose:
+      grafana-postgres-net:
+      speedtest-postgres-net:
+
+  grafana-dash:
+    build:
+      context: ./src/dashboard
+      dockerfile: ./grafana.Dockerfile
+    networks:
+      grafana-postgres-net:
+    ports:
+      - 3000:3000
 
   speedtest:
     build:
       context: ./src/speedtest
-      dockerfile: speedtest.Dockerfile
+      dockerfile: ./speedtest.Dockerfile
     networks:
-      speedtest-redis-net:
+      speedtest-postgres-net:
+
+volumes:
+  postgres:
+
 
 networks:
-  grafana-redis-net:
+  grafana-postgres-net:
 
-  speedtest-redis-net:
-
-  grafana-expose:
+  speedtest-postgres-net:
