@@ -1,7 +1,5 @@
 # docker-grafana-speedtest
 
-[TOC]
-
 ## Description
 
 Docker-Compose deployment for creating a Grafana dashboard, backed by a Postgres
