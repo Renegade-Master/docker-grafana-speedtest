@@ -43,6 +43,32 @@ there is no reason why it cannot run anywhere else.
    2021-07-03 19:40:01.153069+00 | 17024885.969555225 |  30699982.34319679 |  67.329 |   38649856 |       23090672 | http://www.speedtest.net/result/11674166348.png
   ```
 
+## Installation/Running
+
+Steps for running the Docker-Compose deployment:
+
+1. Clone/Download the repository.
+
+2. Run the following command to bring the containers online.
+
+   ```shell
+   docker-compose build; docker-compose up
+   ```
+
+## Default Login Credentials
+
+- Grafana
+
+  | Username | Password |
+  |----------|----------|
+  | admin    | admin    |
+
+- Postgres
+
+  | Username | Password |
+  |----------|----------|
+  | postgres |          |
+
 ## Troubleshooting
 
 - **"APK cannot connect"**

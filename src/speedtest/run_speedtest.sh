@@ -3,7 +3,7 @@
 #######################################################################
 #   Description:
 #       Script to run an Ookla Speedtest CLI run, and upload the result
-#       to a Redis Database.
+#       to a Database.
 #######################################################################
 
 # Remove working files to prepare for the next run
