@@ -23,7 +23,7 @@ function upload_result_to_db() {
 
     python3 /app/upload_to_database.py "$OUTPUT_FILE"
 
-    printf "\n-- Upload Successful.\n"
+    printf "\n-- Upload complete.\n"
 }
 
 
@@ -31,9 +31,27 @@ function upload_result_to_db() {
 function format_results() {
     printf "\n-- Reformatting file...\n"
 
-    local jq_query="
-    [ . | del(.server) | del(.client) ]
-    "
+    local jq_query='[{
+        "type": .type,
+        "timestamp": .timestamp,
+
+        "ping_jitter": .ping.jitter,
+        "ping_latency": .ping.latency,
+
+        "download_bandwidth": .download.bandwidth,
+        "download_bytes": .download.bytes,
+        "download_elapsed": .download.elapsed,
+
+        "upload_bandwidth": .upload.bandwidth,
+        "upload_bytes": .upload.bytes,
+        "upload_elapsed": .upload.elapsed,
+
+        "packetloss": .packetLoss,
+        "isp": .isp,
+
+        "result_id": .result.id,
+        "result_url": .result.url
+    }]'
 
     jq "$jq_query" "$OUTPUT_FILE.raw" > "$OUTPUT_FILE"
 
@@ -43,10 +61,14 @@ function format_results() {
 
 # Run the speedtest, storing the file for later use
 function run_speedtest() {
-    printf "\n-- Running Speedtest...\n"
+    printf "\n-- Running Speedtest against server: [%s]...\n" "$SERVER"
 
-    # speedtest --server 38092 --secure --share --json > "$OUTPUT_FILE.raw"
-    speedtest --secure --share --json > "$OUTPUT_FILE.raw"
+    # Run the Speedtest against the chosen server, or if one was not found, run a general Speedtest
+    if [[ "$SERVER" != "" ]]; then
+        speedtest --accept-license --accept-gdpr -v --server-id="$SERVER" --format=json > "$OUTPUT_FILE.raw"
+    else
+        speedtest --accept-license --accept-gdpr -v --format=json > "$OUTPUT_FILE.raw"
+    fi
 
     printf "\n-- Speedtest complete.\n"
 }
@@ -56,14 +78,22 @@ function run_speedtest() {
 function create_variables() {
     # DATETIME=$(date +%Y%m%dT%H%M%SZ)
 
+    # Create a directory for the result if it does not already exist
     if [[ ! -e /app/results ]]; then
         mkdir /app/results
     fi
 
     local output_directory="/app/results"
     local output_filename="speedtest_result.json"
-
     OUTPUT_FILE="$output_directory/$output_filename"
+
+    # Attempt to read the chosen server from Environment
+    local chosen_provider=${SPEEDTEST_SERVER:-""}
+    SERVER=$(speedtest --accept-license --accept-gdpr --servers | grep -i "$chosen_provider" | head -n 1 | cut -d ' ' -f 2)
+
+    if [[ "$SERVER" == "" ]]; then
+        printf "No server has been set.  Running generic Speedtest.\n"
+    fi
 }
 
 

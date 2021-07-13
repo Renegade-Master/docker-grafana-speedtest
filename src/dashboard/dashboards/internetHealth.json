@@ -1,4 +1,19 @@
 {
+    "__inputs": [],
+    "__requires": [
+        {
+            "type": "grafana",
+            "id": "grafana",
+            "name": "Grafana",
+            "version": "8.0.3"
+        },
+        {
+            "type": "panel",
+            "id": "timeseries",
+            "name": "Time series",
+            "version": ""
+        }
+    ],
     "annotations": {
         "list": [
             {
@@ -15,7 +30,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 1,
+    "id": null,
     "links": [],
     "panels": [
         {
@@ -96,20 +111,49 @@
                     "group": [],
                     "metricColumn": "none",
                     "rawQuery": false,
-                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  ping\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  ping_latency\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
                     "refId": "A",
                     "select": [
                         [
                             {
                                 "params": [
-                                    "ping"
+                                    "ping_latency"
                                 ],
                                 "type": "column"
                             }
                         ]
                     ],
                     "table": "results",
-                    "timeColumn": "\"timestamp\"",
+                    "timeColumn": "timestamp",
+                    "timeColumnType": "timestamptz",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                },
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "hide": false,
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  ping_jitter\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
+                    "refId": "B",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "ping_jitter"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "results",
+                    "timeColumn": "timestamp",
                     "timeColumnType": "timestamptz",
                     "where": [
                         {
@@ -199,20 +243,20 @@
                     "group": [],
                     "metricColumn": "none",
                     "rawQuery": false,
-                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  download\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  download_bandwidth\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
                     "refId": "A",
                     "select": [
                         [
                             {
                                 "params": [
-                                    "download"
+                                    "download_bandwidth"
                                 ],
                                 "type": "column"
                             }
                         ]
                     ],
                     "table": "results",
-                    "timeColumn": "\"timestamp\"",
+                    "timeColumn": "timestamp",
                     "timeColumnType": "timestamptz",
                     "where": [
                         {
@@ -228,13 +272,13 @@
                     "hide": false,
                     "metricColumn": "none",
                     "rawQuery": false,
-                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  upload\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  upload_bandwidth\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
                     "refId": "B",
                     "select": [
                         [
                             {
                                 "params": [
-                                    "upload"
+                                    "upload_bandwidth"
                                 ],
                                 "type": "column"
                             }
@@ -264,12 +308,12 @@
         "list": []
     },
     "time": {
-        "from": "now-1h",
+        "from": "now-2d",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Internet Health",
-    "uid": "xpX8Twkgk",
+    "uid": "T4Q_O1igz",
     "version": 3
 }

@@ -7,7 +7,7 @@ services:
     env_file:
       - ./src/database/.env
     volumes:
-      - postgres:/var/lib/postgresql/data/
+      - postgres-data:/var/lib/postgresql/data/
     networks:
       grafana-postgres-net:
       speedtest-postgres-net:
@@ -16,6 +16,8 @@ services:
     build:
       context: ./src/dashboard
       dockerfile: ./grafana.Dockerfile
+    volumes:
+      - grafana-data:/var/lib/grafana
     networks:
       grafana-postgres-net:
     ports:
@@ -25,14 +27,15 @@ services:
     build:
       context: ./src/speedtest
       dockerfile: ./speedtest.Dockerfile
+    env_file:
+      - ./src/database/.env
     networks:
       speedtest-postgres-net:
 
 volumes:
-  postgres:
-
+  postgres-data:
+  grafana-data:
 
 networks:
   grafana-postgres-net:
-
   speedtest-postgres-net:

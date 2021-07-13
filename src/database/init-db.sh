@@ -12,13 +12,26 @@ psql -U postgres <<-EOSQL
 
     BEGIN;
         CREATE TABLE results (
-            timestamp timestamptz PRIMARY KEY,
-            download DECIMAL,
-            upload DECIMAL,
-            ping DECIMAL,
-            bytes_sent INTEGER,
-            bytes_received INTEGER,
-            share VARCHAR(128)
+            type VARCHAR(128),
+            timestamp timestamptz,
+
+            ping_jitter DECIMAL,
+            ping_latency DECIMAL,
+
+            download_bandwidth INTEGER,
+            download_bytes INTEGER,
+            download_elapsed INTEGER,
+
+            upload_bandwidth INTEGER,
+            upload_bytes INTEGER,
+            upload_elapsed INTEGER,
+
+            packetloss DECIMAL,
+
+            isp VARCHAR(128),
+
+            result_id VARCHAR(128) PRIMARY KEY,
+            result_url VARCHAR(128)
         );
     COMMIT;
 EOSQL
