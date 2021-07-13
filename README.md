@@ -8,8 +8,9 @@ database.  The output of the Ookla Speedtest.net CLI tool writes to the database
 The intention of this deployment is to create a simple Internet Health Check
 Dashboard.
 
-This Docker image was build with the intended Host being a Raspberry PI 4, but
-there is no reason why it cannot run anywhere else.
+This Docker image was build with the intended host being a Raspberry PI 4, but
+there is no reason why it cannot run anywhere else. It is compatible with 32-bit
+systems.
 
 ## Example Images
 
@@ -19,28 +20,22 @@ there is no reason why it cannot run anywhere else.
 - Database
 
   ```
-             timestamp           |      download      |       upload       |  ping   | bytes_sent | bytes_received |                      share
-  -------------------------------+--------------------+--------------------+---------+------------+----------------+-------------------------------------------------
-   2021-07-03 17:31:52.488105+00 |  21852981.45102463 |  23265454.66379635 |  65.421 |   29310976 |       28886512 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 17:35:01.077231+00 | 14252342.850197388 |   20981610.2126279 |  57.608 |   26583040 |       17909508 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 17:40:01.495294+00 |  10517407.81981884 | 21504911.172475275 |  67.227 |   27287552 |       13249284 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 17:45:01.033392+00 |  6406464.107586999 |  15838016.99675269 |  65.836 |   21291008 |        8156300 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 17:50:01.915597+00 |  7084157.602354868 | 19185927.985337697 |  58.661 |   24231936 |        9736964 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 17:55:00.929206+00 | 10449298.473523138 | 12057307.551747277 |  70.689 |   15187968 |       13148736 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 18:05:00.909505+00 |  24954550.65151375 |  16875021.17071964 |  57.293 |   21405696 |       31419393 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 18:10:01.069168+00 | 15716179.743778327 |  23336177.57879359 |  60.961 |   29384704 |       20100592 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 18:15:00.932734+00 |  12621304.53935426 | 20437007.293488678 |  65.808 |   26198016 |       16158468 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 18:20:01.654659+00 |  6904538.577015014 |  19788176.74811917 |  76.845 |   24846336 |        8837696 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 18:25:02.337254+00 | 14635041.826680405 | 17225036.197095957 |  50.378 |   21692416 |       18398900 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 18:35:03.340413+00 |  1780214.005611139 |  8572333.178945964 | 895.635 |   11476992 |        2312752 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 18:40:01.019869+00 | 23705113.343745794 | 28608959.659864817 |   96.62 |   36225024 |       31600388 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 18:45:01.064943+00 | 21679871.085997894 | 17176975.166997552 |  82.993 |   21749760 |       27385937 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 18:50:01.003216+00 | 14764615.798014143 | 28600127.626174692 |  59.146 |   35962880 |       18564868 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 18:55:01.069302+00 | 13693673.757891873 | 26527013.116073083 |  77.632 |   33472512 |       17244184 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 19:21:40.095221+00 | 22402147.507291242 | 29081976.080305226 |  75.137 |   36724736 |       30033668 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 19:25:01.251125+00 |  20837749.38404466 | 29857197.247680496 |  82.225 |   37584896 |       26309633 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 19:34:58.98777+00  |  26523961.98677843 |  17138199.57992225 |  65.585 |   21766144 |       33549589 | http://www.speedtest.net/result/<result>.png
-   2021-07-03 19:40:01.153069+00 | 17024885.969555225 |  30699982.34319679 |  67.329 |   38649856 |       23090672 | http://www.speedtest.net/result/<result>.png
+    type  |       timestamp        | ping_jitter | ping_latency | download_bandwidth | download_bytes | download_elapsed | upload_bandwidth | upload_bytes | upload_elapsed |     packetloss      |      isp      |  result_id  |    result_url
+  --------+------------------------+-------------+--------------+--------------------+----------------+------------------+------------------+--------------+----------------+---------------------+---------------+-------------+------------------
+   result | 2021-07-12 23:56:40+00 |       4.153 |       42.964 |            1948966 |       30263552 |            15000 |          2649820 |     25742208 |           9711 | 0.33444816053511706 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 00:00:35+00 |       3.743 |       39.684 |            2511049 |       35756160 |            15001 |          3756017 |     48417024 |          13302 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 00:05:53+00 |      12.722 |       28.636 |            3234516 |       33908864 |            10702 |          3105898 |     45029376 |          15000 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 00:15:34+00 |       9.527 |       24.937 |            2754997 |       33717376 |            13015 |          3849669 |     54410880 |          15001 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 00:30:28+00 |      17.792 |       28.864 |            3342954 |       38793216 |            11615 |          3743506 |     32680704 |           9011 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 00:43:40+00 |      12.308 |       38.725 |            4403536 |       60031488 |            15004 |          3442702 |     35385728 |          10313 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 00:58:02+00 |      18.829 |       29.802 |            3805086 |       51518720 |            13610 |          3305735 |     23492608 |           6902 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 01:00:27+00 |       6.632 |       46.076 |            3630412 |       45603840 |            15002 |          3547809 |     14530048 |           4100 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 01:15:30+00 |      20.161 |       51.106 |            3681545 |       48687232 |            15016 |          3331651 |     20683136 |           6211 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 01:30:29+00 |       2.493 |       30.268 |            7839970 |       85003776 |            11303 |          3391554 |     20413056 |           6011 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 01:45:27+00 |       8.066 |       29.272 |            7884289 |       85360000 |            11502 |          3337812 |     27271424 |           8212 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 02:00:36+00 |       5.044 |       37.943 |            3539327 |       52663424 |            15007 |          2711022 |     39677440 |          15013 |  3.3444816053511706 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 02:15:25+00 |       0.221 |       49.695 |            3335805 |       33282304 |            10016 |          3365187 |     27819392 |           8306 |                   0 | Three Ireland | <result_id> | <link_to_result>
+   result | 2021-07-13 02:30:24+00 |       0.063 |       39.834 |            3976865 |       39597184 |             9908 |          3353327 |     22381568 |           6609 |                   0 | Three Ireland | <result_id> | <link_to_result>
   ```
 
 ## Installation/Running
@@ -49,10 +44,10 @@ Steps for running the Docker-Compose deployment:
 
 1. Clone/Download the repository.
 
-2. Run the following command to bring the containers online.
+2. Run the following command from the root of the repository to bring the containers online.
 
    ```shell
-   docker-compose build; docker-compose up
+   docker-compose up
    ```
 
 ## Default Login Credentials

@@ -89,7 +89,7 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 14,
+                "h": 11,
                 "w": 24,
                 "x": 0,
                 "y": 0
@@ -110,8 +110,8 @@
                     "format": "time_series",
                     "group": [],
                     "metricColumn": "none",
-                    "rawQuery": false,
-                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  ping_latency\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  ping_latency as \"Ping\"\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
                     "refId": "A",
                     "select": [
                         [
@@ -139,8 +139,8 @@
                     "group": [],
                     "hide": false,
                     "metricColumn": "none",
-                    "rawQuery": false,
-                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  ping_jitter\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  ping_jitter as \"Jitter\"\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
                     "refId": "B",
                     "select": [
                         [
@@ -221,10 +221,10 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 16,
+                "h": 11,
                 "w": 24,
                 "x": 0,
-                "y": 14
+                "y": 11
             },
             "id": 2,
             "options": {
@@ -242,8 +242,8 @@
                     "format": "time_series",
                     "group": [],
                     "metricColumn": "none",
-                    "rawQuery": false,
-                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  download_bandwidth\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  download_bandwidth * 8 as \"Download Mb/s\"\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
                     "refId": "A",
                     "select": [
                         [
@@ -271,8 +271,8 @@
                     "group": [],
                     "hide": false,
                     "metricColumn": "none",
-                    "rawQuery": false,
-                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  upload_bandwidth\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  upload_bandwidth * 8 as \"Upload Mb/s\"\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
                     "refId": "B",
                     "select": [
                         [
@@ -297,6 +297,7 @@
                 }
             ],
             "title": "Download/Upload",
+            "transformations": [],
             "type": "timeseries"
         }
     ],
@@ -308,12 +309,12 @@
         "list": []
     },
     "time": {
-        "from": "now-2d",
+        "from": "now-24h",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Internet Health",
     "uid": "T4Q_O1igz",
-    "version": 3
+    "version": 8
 }

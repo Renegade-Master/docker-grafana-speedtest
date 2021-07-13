@@ -69,6 +69,11 @@ def upload_to_postgres(filename: str) -> None:
             #     utc_time = datetime.strptime("2009-03-08T00:27:31.807Z", "%Y-%m-%dT%H:%M:%S.%fZ")
             #     val = (utc_time - datetime(1970, 1, 1)).total_seconds()
 
+            # Change PacketLoss to Decimal
+            if col_names == "packetloss":
+                if val is None:
+                    val = 0
+
             values += [str(val)]
 
         # join the list of values and enclose record in parenthesis
