@@ -2,6 +2,12 @@
     "__inputs": [],
     "__requires": [
         {
+            "type": "panel",
+            "id": "gauge",
+            "name": "Gauge",
+            "version": ""
+        },
+        {
             "type": "grafana",
             "id": "grafana",
             "name": "Grafana",
@@ -33,6 +39,20 @@
     "id": null,
     "links": [],
     "panels": [
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 6,
+            "panels": [],
+            "title": "Ping and Speed",
+            "type": "row"
+        },
         {
             "datasource": null,
             "description": "",
@@ -66,7 +86,7 @@
                             "mode": "none"
                         },
                         "thresholdsStyle": {
-                            "mode": "line"
+                            "mode": "area"
                         }
                     },
                     "mappings": [],
@@ -77,6 +97,10 @@
                             {
                                 "color": "green",
                                 "value": null
+                            },
+                            {
+                                "color": "orange",
+                                "value": 50
                             },
                             {
                                 "color": "red",
@@ -92,7 +116,7 @@
                 "h": 11,
                 "w": 24,
                 "x": 0,
-                "y": 0
+                "y": 1
             },
             "id": 4,
             "options": {
@@ -199,7 +223,7 @@
                             "mode": "none"
                         },
                         "thresholdsStyle": {
-                            "mode": "line"
+                            "mode": "area"
                         }
                     },
                     "mappings": [],
@@ -207,12 +231,16 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "red",
                                 "value": null
                             },
                             {
-                                "color": "red",
-                                "value": 10240000
+                                "color": "orange",
+                                "value": 12582912
+                            },
+                            {
+                                "color": "green",
+                                "value": 26214400
                             }
                         ]
                     },
@@ -224,7 +252,7 @@
                 "h": 11,
                 "w": 24,
                 "x": 0,
-                "y": 11
+                "y": 12
             },
             "id": 2,
             "options": {
@@ -299,6 +327,269 @@
             "title": "Download/Upload",
             "transformations": [],
             "type": "timeseries"
+        },
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 23
+            },
+            "id": 8,
+            "panels": [],
+            "title": "Averages",
+            "type": "row"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "orange",
+                                "value": 50
+                            },
+                            {
+                                "color": "red",
+                                "value": 100
+                            }
+                        ]
+                    },
+                    "unit": "ms"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 0,
+                "y": 24
+            },
+            "id": 10,
+            "options": {
+                "reduceOptions": {
+                    "calcs": [
+                        "mean"
+                    ],
+                    "fields": "/^Ping$/",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "text": {}
+            },
+            "pluginVersion": "8.0.3",
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  ping_latency as \"Ping\"\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "ping_latency"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "results",
+                    "timeColumn": "\"timestamp\"",
+                    "timeColumnType": "timestamptz",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Average Ping",
+            "transformations": [],
+            "type": "gauge"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "orange",
+                                "value": 12582912
+                            },
+                            {
+                                "color": "green",
+                                "value": 26244400
+                            }
+                        ]
+                    },
+                    "unit": "bps"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 8,
+                "y": 24
+            },
+            "id": 14,
+            "options": {
+                "reduceOptions": {
+                    "calcs": [
+                        "mean"
+                    ],
+                    "fields": "/^Download Mb/s$/",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "text": {}
+            },
+            "pluginVersion": "8.0.3",
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  download_bandwidth * 8 as \"Download Mb/s\"\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "download_bandwidth"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "results",
+                    "timeColumn": "\"timestamp\"",
+                    "timeColumnType": "timestamptz",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Average Download",
+            "transformations": [],
+            "type": "gauge"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "orange",
+                                "value": 12582912
+                            },
+                            {
+                                "color": "green",
+                                "value": 26244400
+                            }
+                        ]
+                    },
+                    "unit": "bps"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 16,
+                "y": 24
+            },
+            "id": 12,
+            "options": {
+                "reduceOptions": {
+                    "calcs": [
+                        "mean"
+                    ],
+                    "fields": "/^Upload Mb/s$/",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "text": {}
+            },
+            "pluginVersion": "8.0.3",
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  upload_bandwidth * 8 as \"Upload Mb/s\"\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "download_bandwidth"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "results",
+                    "timeColumn": "\"timestamp\"",
+                    "timeColumnType": "timestamptz",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Average Upload",
+            "transformations": [],
+            "type": "gauge"
         }
     ],
     "refresh": "5m",
@@ -309,12 +600,12 @@
         "list": []
     },
     "time": {
-        "from": "now-24h",
+        "from": "now-3d",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Internet Health",
     "uid": "T4Q_O1igz",
-    "version": 8
+    "version": 22
 }
