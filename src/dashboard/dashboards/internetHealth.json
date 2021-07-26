@@ -54,8 +54,47 @@
             "type": "row"
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                100
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "Ping",
+                                "15m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "30m",
+                "frequency": "15m",
+                "handler": 1,
+                "message": "Ping is above configured threshold.",
+                "name": "Ping alert",
+                "noDataState": "no_data",
+                "notifications": [
+                    {
+                        "uid": "FT3UCBZgz"
+                    }
+                ]
+            },
             "datasource": null,
-            "description": "",
             "fieldConfig": {
                 "defaults": {
                     "color": {
@@ -66,41 +105,48 @@
                         "axisPlacement": "auto",
                         "barAlignment": 0,
                         "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
+                        "fillOpacity": 100,
+                        "gradientMode": "opacity",
                         "hideFrom": {
                             "legend": false,
                             "tooltip": false,
                             "viz": false
                         },
                         "lineInterpolation": "linear",
-                        "lineWidth": 1,
+                        "lineStyle": {
+                            "fill": "solid"
+                        },
+                        "lineWidth": 2,
                         "pointSize": 5,
                         "scaleDistribution": {
                             "type": "linear"
                         },
                         "showPoints": "auto",
-                        "spanNulls": false,
+                        "spanNulls": 900000,
                         "stacking": {
                             "group": "A",
                             "mode": "none"
                         },
                         "thresholdsStyle": {
-                            "mode": "area"
+                            "mode": "line"
                         }
                     },
                     "mappings": [],
-                    "max": 256,
+                    "max": 192,
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "transparent",
                                 "value": null
                             },
                             {
+                                "color": "green",
+                                "value": 30
+                            },
+                            {
                                 "color": "orange",
-                                "value": 50
+                                "value": 60
                             },
                             {
                                 "color": "red",
@@ -110,15 +156,46 @@
                     },
                     "unit": "ms"
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Ping ms"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "text",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Jitter ms"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
             },
             "gridPos": {
-                "h": 11,
+                "h": 9,
                 "w": 24,
                 "x": 0,
                 "y": 1
             },
-            "id": 4,
+            "id": 15,
             "options": {
                 "legend": {
                     "calcs": [],
@@ -135,13 +212,13 @@
                     "group": [],
                     "metricColumn": "none",
                     "rawQuery": true,
-                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  ping_latency as \"Ping\"\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
-                    "refId": "A",
+                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  ping_latency as \"Ping ms\"\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
+                    "refId": "Ping",
                     "select": [
                         [
                             {
                                 "params": [
-                                    "ping_latency"
+                                    "download_bandwidth"
                                 ],
                                 "type": "column"
                             }
@@ -164,20 +241,20 @@
                     "hide": false,
                     "metricColumn": "none",
                     "rawQuery": true,
-                    "rawSql": "SELECT\n  timestamp AS \"time\",\n  ping_jitter as \"Jitter\"\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
-                    "refId": "B",
+                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  ping_jitter as \"Jitter ms\"\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "refId": "Jitter",
                     "select": [
                         [
                             {
                                 "params": [
-                                    "ping_jitter"
+                                    "upload_bandwidth"
                                 ],
                                 "type": "column"
                             }
                         ]
                     ],
                     "table": "results",
-                    "timeColumn": "timestamp",
+                    "timeColumn": "\"timestamp\"",
                     "timeColumnType": "timestamptz",
                     "where": [
                         {
@@ -188,10 +265,82 @@
                     ]
                 }
             ],
-            "title": "Ping/Latency",
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "op": "gt",
+                    "value": 100,
+                    "visible": true
+                }
+            ],
+            "title": "Ping/Jitter",
+            "transformations": [],
             "type": "timeseries"
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                8388608
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "DownloadBandwidth",
+                                "15m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    },
+                    {
+                        "evaluator": {
+                            "params": [
+                                8388608
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "or"
+                        },
+                        "query": {
+                            "params": [
+                                "UploadBandwidth",
+                                "15m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "30m",
+                "frequency": "15m",
+                "handler": 1,
+                "message": "Download/Upload bandwidth is below configured threshold.",
+                "name": "Download/Upload alert",
+                "noDataState": "no_data",
+                "notifications": [
+                    {
+                        "uid": "FT3UCBZgz"
+                    }
+                ]
+            },
             "datasource": null,
             "fieldConfig": {
                 "defaults": {
@@ -203,27 +352,30 @@
                         "axisPlacement": "auto",
                         "barAlignment": 0,
                         "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
+                        "fillOpacity": 100,
+                        "gradientMode": "opacity",
                         "hideFrom": {
                             "legend": false,
                             "tooltip": false,
                             "viz": false
                         },
                         "lineInterpolation": "linear",
-                        "lineWidth": 1,
+                        "lineStyle": {
+                            "fill": "solid"
+                        },
+                        "lineWidth": 2,
                         "pointSize": 5,
                         "scaleDistribution": {
                             "type": "linear"
                         },
                         "showPoints": "auto",
-                        "spanNulls": false,
+                        "spanNulls": 900000,
                         "stacking": {
                             "group": "A",
                             "mode": "none"
                         },
                         "thresholdsStyle": {
-                            "mode": "area"
+                            "mode": "line"
                         }
                     },
                     "mappings": [],
@@ -231,28 +383,63 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "red",
+                                "color": "transparent",
                                 "value": null
                             },
                             {
+                                "color": "red",
+                                "value": 8388608
+                            },
+                            {
                                 "color": "orange",
-                                "value": 12582912
+                                "value": 14680064
                             },
                             {
                                 "color": "green",
-                                "value": 26214400
+                                "value": 27262976
                             }
                         ]
                     },
                     "unit": "bps"
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Download Mb/s"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "text",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Upload Mb/s"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
             },
             "gridPos": {
-                "h": 11,
+                "h": 9,
                 "w": 24,
                 "x": 0,
-                "y": 12
+                "y": 10
             },
             "id": 2,
             "options": {
@@ -272,7 +459,7 @@
                     "metricColumn": "none",
                     "rawQuery": true,
                     "rawSql": "SELECT\n  timestamp AS \"time\",\n  download_bandwidth * 8 as \"Download Mb/s\"\nFROM results\nWHERE\n  $__timeFilter(timestamp)\nORDER BY 1",
-                    "refId": "A",
+                    "refId": "DownloadBandwidth",
                     "select": [
                         [
                             {
@@ -301,7 +488,7 @@
                     "metricColumn": "none",
                     "rawQuery": true,
                     "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  upload_bandwidth * 8 as \"Upload Mb/s\"\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
-                    "refId": "B",
+                    "refId": "UploadBandwidth",
                     "select": [
                         [
                             {
@@ -324,6 +511,14 @@
                     ]
                 }
             ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "op": "lt",
+                    "value": 8388608,
+                    "visible": true
+                }
+            ],
             "title": "Download/Upload",
             "transformations": [],
             "type": "timeseries"
@@ -335,7 +530,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 23
+                "y": 19
             },
             "id": 8,
             "panels": [],
@@ -372,10 +567,10 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
+                "h": 7,
                 "w": 8,
                 "x": 0,
-                "y": 24
+                "y": 20
             },
             "id": 10,
             "options": {
@@ -455,10 +650,10 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
+                "h": 7,
                 "w": 8,
                 "x": 8,
-                "y": 24
+                "y": 20
             },
             "id": 14,
             "options": {
@@ -538,10 +733,10 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
+                "h": 7,
                 "w": 8,
                 "x": 16,
-                "y": 24
+                "y": 20
             },
             "id": 12,
             "options": {
@@ -600,12 +795,12 @@
         "list": []
     },
     "time": {
-        "from": "now-3d",
+        "from": "now-7d",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Internet Health",
     "uid": "T4Q_O1igz",
-    "version": 22
+    "version": 32
 }
