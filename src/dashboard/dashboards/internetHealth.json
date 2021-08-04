@@ -82,8 +82,8 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "30m",
-                "frequency": "15m",
+                "for": "5m",
+                "frequency": "5m",
                 "handler": 1,
                 "message": "Ping is above configured threshold.",
                 "name": "Ping alert",
@@ -329,8 +329,8 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "30m",
-                "frequency": "15m",
+                "for": "5m",
+                "frequency": "5m",
                 "handler": 1,
                 "message": "Download/Upload bandwidth is below configured threshold.",
                 "name": "Download/Upload alert",
@@ -802,5 +802,5 @@
     "timezone": "",
     "title": "Internet Health",
     "uid": "T4Q_O1igz",
-    "version": 32
+    "version": 33
 }

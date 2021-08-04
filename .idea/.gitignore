@@ -9,3 +9,7 @@
 
 ## User Additions
 discord.xml
+deployment.xml
+runConfigurations.xml
+sshConfigs.xml
+webServers.xml

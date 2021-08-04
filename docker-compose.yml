@@ -21,7 +21,7 @@ services:
     networks:
       grafana-postgres-net:
     ports:
-      - 3000:3000
+      - "3000:3000"
 
   speedtest:
     build:
