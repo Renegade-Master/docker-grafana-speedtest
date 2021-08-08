@@ -7,8 +7,8 @@ Speedtest.net CLI tool writes to the database.
 
 The intention of this deployment is to create a simple Internet Health Check Dashboard.
 
-This Docker image was build with the intended host being a Raspberry PI 4, but there is no reason why it cannot run
-anywhere else. It is compatible with 32-bit systems.
+This Docker image was build with the intended host being a Raspberry PI 4 running 32-bit Raspbian, but it will run 
+on any machine capable of running Docker. It is compatible with 32-bit systems.
 
 ## Example Images
 
@@ -38,6 +38,8 @@ anywhere else. It is compatible with 32-bit systems.
 
 ## Installation/Running
 
+### Docker Compose
+
 Steps for running the Docker-Compose deployment:
 
 1. Clone/Download the repository.
@@ -47,6 +49,12 @@ Steps for running the Docker-Compose deployment:
    ```shell
    docker-compose up
    ```
+
+### Helm
+
+Steps for installing the Helm Chart:
+
+1. 
 
 ## Default Login Credentials
 

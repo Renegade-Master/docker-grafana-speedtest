@@ -1,6 +1,8 @@
 ### User Addtions ###
 
 /.venv/
+Charts/**/docker-grafana-speedtest-*.tgz
+Charts/**/charts/*
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij
