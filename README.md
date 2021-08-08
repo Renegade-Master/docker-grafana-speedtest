@@ -2,15 +2,13 @@
 
 ## Description
 
-Docker-Compose deployment for creating a Grafana dashboard, backed by a Postgres
-database.  The output of the Ookla Speedtest.net CLI tool writes to the database.
+Docker-Compose deployment for creating a Grafana dashboard, backed by a Postgres database. The output of the Ookla
+Speedtest.net CLI tool writes to the database.
 
-The intention of this deployment is to create a simple Internet Health Check
-Dashboard.
+The intention of this deployment is to create a simple Internet Health Check Dashboard.
 
-This Docker image was build with the intended host being a Raspberry PI 4, but
-there is no reason why it cannot run anywhere else. It is compatible with 32-bit
-systems.
+This Docker image was build with the intended host being a Raspberry PI 4, but there is no reason why it cannot run
+anywhere else. It is compatible with 32-bit systems.
 
 ## Example Images
 
@@ -67,10 +65,10 @@ Steps for running the Docker-Compose deployment:
 ## Troubleshooting
 
 - **"APK cannot connect"**
-  - Missing required library on host.  Install the following
+    - Missing required library on host. Install the following
 
-    ```shell
-    wget "https://ftp.de.debian.org/debian/pool/main/libs/libseccomp/libseccomp2_2.5.1-1_armhf.deb"
-    
-    dpkg -i libseccomp2_2.5.1-1_armhf.deb
-    ```
+      ```shell
+      wget "https://ftp.de.debian.org/debian/pool/main/libs/libseccomp/libseccomp2_2.5.1-1_armhf.deb"
+      
+      dpkg -i libseccomp2_2.5.1-1_armhf.deb
+      ```
