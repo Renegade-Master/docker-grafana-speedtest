@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert --chart
+    kompose.version: 1.23.0 (bc7d9f4f)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: postgres-db
+  name: postgres-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: postgres-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert --chart
+        kompose.version: 1.23.0 (bc7d9f4f)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/grafana-postgres-net: "true"
+        io.kompose.network/speedtest-postgres-net: "true"
+        io.kompose.service: postgres-db
+    spec:
+      containers:
+        - image: renegademaster/docker-grafana-speedtest-database:0.1.0-0
+          name: postgres-db
+          resources: { }
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data/
+              name: postgres-data
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-db-secret
+                  key: POSTGRES_PASSWORD
+      restartPolicy: Always
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-data
+status: { }

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert --chart
+    kompose.version: 1.23.0 (bc7d9f4f)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: grafana-dash
+  name: grafana-dash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: grafana-dash
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert --chart
+        kompose.version: 1.23.0 (bc7d9f4f)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/grafana-postgres-net: "true"
+        io.kompose.service: grafana-dash
+    spec:
+      containers:
+        - image: renegademaster/docker-grafana-speedtest-dashboard:0.1.0-0
+          name: grafana-dash
+          ports:
+            - containerPort: 3000
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-data
+#      initContainers:
+#        - name: init-db
+#          image: busybox
+#          command: ['sh', '-c', 'until nc -z postgres-db:5432; do echo waiting for db; sleep 2; done;']
+      restartPolicy: Always
+      volumes:
+        - name: grafana-data
+          persistentVolumeClaim:
+            claimName: grafana-data
+status: {}

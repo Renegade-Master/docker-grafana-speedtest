@@ -3,9 +3,9 @@ services:
   postgres-db:
     build:
       context: ./src/database
-      dockerfile: ./postgres.Dockerfile
-    env_file:
-      - ./src/database/.env
+    image: renegademaster/docker-grafana-speedtest-database
+    container_name: postgres-db
+    restart: always
     volumes:
       - postgres-data:/var/lib/postgresql/data/
     networks:
@@ -15,7 +15,9 @@ services:
   grafana-dash:
     build:
       context: ./src/dashboard
-      dockerfile: ./grafana.Dockerfile
+    image: renegademaster/docker-grafana-speedtest-dashboard
+    container_name: grafana-dash
+    restart: always
     volumes:
       - grafana-data:/var/lib/grafana
     networks:
@@ -26,9 +28,9 @@ services:
   speedtest:
     build:
       context: ./src/speedtest
-      dockerfile: ./speedtest.Dockerfile
-    env_file:
-      - ./src/speedtest/.env
+    image: renegademaster/docker-grafana-speedtest-speedtest
+    container_name: speedtest
+    restart: always
     networks:
       speedtest-postgres-net:
 
