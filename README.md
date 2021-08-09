@@ -36,6 +36,19 @@ on any machine capable of running Docker. It is compatible with 32-bit systems.
    result | 2021-07-13 02:30:24+00 |       0.063 |       39.834 |            3976865 |       39597184 |             9908 |          3353327 |     22381568 |           6609 |                   0 | Three Ireland | <result_id> | <link_to_result>
   ```
 
+## Images
+
+The Docker images are hosted on Docker Hub at the following links:
+
+  - [renegademaster/docker-grafana-speedtest-database](https://hub.docker.com/repository/docker/renegademaster/docker-grafana-speedtest-database)
+  - [renegademaster/docker-grafana-speedtest-dashboard](https://hub.docker.com/repository/docker/renegademaster/docker-grafana-speedtest-dashboard)
+  - [renegademaster/docker-grafana-speedtest-speedtest](https://hub.docker.com/repository/docker/renegademaster/docker-grafana-speedtest-speedtest)
+
+The Helm Charts are hosted in this repository in the `gh-pages` branch.
+The repository can be reached at the following URL:
+
+  - [renegade-master/docker-grafana-speedtest](https://renegade-master.github.io/docker-grafana-speedtest)
+
 ## Installation/Running
 
 ### Docker Compose
