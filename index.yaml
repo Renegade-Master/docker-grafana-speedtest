@@ -3,21 +3,7 @@ entries:
   docker-grafana-speedtest:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-08-09T18:35:57.202277425Z"
-    description: A Helm chart for creating a Grafana dashboard, backed by a Postgres
-      database. The output of the Ookla Speedtest.net CLI tool writes to the database.  The
-      intention of this deployment is to create a simple Internet Health Check Dashboard.  This
-      Docker image was build with the intended host being a Raspberry PI 4, but there
-      is no reason why it cannot run anywhere else. It is compatible with 32-bit systems.
-    digest: 3cfa608be3ab588fe35c54278a9181b64ba523d18f5f1c2b5604b494e57c497a
-    name: docker-grafana-speedtest
-    type: application
-    urls:
-    - https://github.com/Renegade-Master/docker-grafana-speedtest/releases/download/docker-grafana-speedtest-0.1.2/docker-grafana-speedtest-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2021-08-09T19:28:54.631072463+01:00"
+    created: "2021-08-09T20:03:27.06474859+01:00"
     description: A Helm chart for creating a Grafana dashboard, backed by a Postgres
       database. The output of the Ookla Speedtest.net CLI tool writes to the database.  The
       intention of this deployment is to create a simple Internet Health Check Dashboard.  This
@@ -27,6 +13,6 @@ entries:
     name: docker-grafana-speedtest
     type: application
     urls:
-    - https://renegade-master.github.io/docker-grafana-speedtest/docker-grafana-speedtest-0.1.1.tgz
+    - https://renegade-master.github.io/docker-grafana-speedtest/dgst/docker-grafana-speedtest-0.1.1.tgz
     version: 0.1.1
-generated: "2021-08-09T18:35:57.202290226Z"
+generated: "2021-08-09T20:03:27.064526133+01:00"
