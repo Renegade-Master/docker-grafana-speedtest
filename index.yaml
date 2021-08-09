@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  docker-compose:
+  - apiVersion: v1
+    created: "2021-08-09T21:37:15.753688398Z"
+    description: A generated Helm Chart for docker-compose from Skippbox Kompose
+    digest: d18ea8b6fbfe180750e119a4122a94c19055edf789da86cf3f0ce70fb621be2e
+    keywords:
+    - docker-compose
+    name: docker-compose
+    urls:
+    - https://github.com/Renegade-Master/docker-grafana-speedtest/releases/download/docker-compose-0.0.1/docker-compose-0.0.1.tgz
+    version: 0.0.1
   docker-grafana-speedtest:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -15,4 +26,4 @@ entries:
     urls:
     - https://renegade-master.github.io/docker-grafana-speedtest/dgst/docker-grafana-speedtest-0.1.1.tgz
     version: 0.1.1
-generated: "2021-08-09T20:03:27.064526133+01:00"
+generated: "2021-08-09T21:37:15.753712698Z"
