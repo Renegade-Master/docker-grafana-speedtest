@@ -1,8 +1,25 @@
-name: docker-compose
-description: A generated Helm Chart for docker-compose from Skippbox Kompose
-version: 0.0.1
-apiVersion: v1
+apiVersion: v2
+
+name: grafana-speedtest
+description: A Helm Chart for deploying a Grafana Dashboard connected to a Postgres SQL Database which runs an Ookla Speedtest every 15 minutes.
+type: application
+
+# This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+version: 0.0.1-0
+
+# This version number should be incremented each time you make changes
+# to the application.
+appVersion: "0.0.1-0"
+
 keywords:
   - docker-compose
+  - grafana
+  - postgres
+  - speedtest
+
 sources:
-home:
+  - "https://github.com/Renegade-Master/docker-grafana-speedtest"
+
+
+home: "https://renegade-master.github.io/docker-grafana-speedtest"
