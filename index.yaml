@@ -26,4 +26,24 @@ entries:
     urls:
     - https://renegade-master.github.io/docker-grafana-speedtest/dgst/docker-grafana-speedtest-0.1.1.tgz
     version: 0.1.1
-generated: "2021-08-09T21:37:15.753712698Z"
+  grafana-speedtest:
+  - apiVersion: v2
+    appVersion: 0.0.1-0
+    created: "2021-08-12T21:08:33.859079156Z"
+    description: A Helm Chart for deploying a Grafana Dashboard connected to a Postgres
+      SQL Database which runs an Ookla Speedtest every 15 minutes.
+    digest: 784726c01583c8e9c0a854d2151582112fd317c13cf95e627d9d59260eea3535
+    home: https://renegade-master.github.io/docker-grafana-speedtest
+    keywords:
+    - docker-compose
+    - grafana
+    - postgres
+    - speedtest
+    name: grafana-speedtest
+    sources:
+    - https://github.com/Renegade-Master/docker-grafana-speedtest
+    type: application
+    urls:
+    - https://github.com/Renegade-Master/docker-grafana-speedtest/releases/download/grafana-speedtest-0.0.1-0/grafana-speedtest-0.0.1-0.tgz
+    version: 0.0.1-0
+generated: "2021-08-12T21:08:33.859088556Z"
