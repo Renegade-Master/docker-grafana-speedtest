@@ -41,6 +41,6 @@ jobs:
           # The relative path to the chart-releaser config file
           #config: # optional
           # The charts directory
-          charts_dir: Charts/dev
+          charts_dir: charts/dev
           # The GitHub Pages URL to the charts repo (default: https://<owner>.github.io/<repo>)
           charts_repo_url: https://renegade-master.github.io/docker-grafana-speedtest
