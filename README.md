@@ -54,7 +54,17 @@ Steps for running the Docker-Compose deployment:
 
 Steps for installing the Helm Chart:
 
-1. 
+1. Add the Chart repository:
+
+   ```shell
+   helm repo add <repo_name> "https://renegade-master.github.io/docker-grafana-speedtest/"
+   ```
+
+2. Install chart with:
+
+   ```shell
+   helm install [--namespace <namespace>] <name> <repo_name>/grafana-speedtest --version <version> [--devel] [--debug]
+   ```
 
 ## Default Login Credentials
 
