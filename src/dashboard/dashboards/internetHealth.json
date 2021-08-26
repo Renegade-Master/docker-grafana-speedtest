@@ -15,6 +15,12 @@
         },
         {
             "type": "panel",
+            "id": "stat",
+            "name": "Stat",
+            "version": ""
+        },
+        {
+            "type": "panel",
             "id": "timeseries",
             "name": "Time series",
             "version": ""
@@ -82,8 +88,8 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
-                "frequency": "5m",
+                "for": "30m",
+                "frequency": "30m",
                 "handler": 1,
                 "message": "Ping is above configured threshold.",
                 "name": "Ping alert",
@@ -198,8 +204,12 @@
             "id": 15,
             "options": {
                 "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
+                    "calcs": [
+                        "last",
+                        "min",
+                        "max"
+                    ],
+                    "displayMode": "table",
                     "placement": "bottom"
                 },
                 "tooltip": {
@@ -275,6 +285,7 @@
             ],
             "title": "Ping/Jitter",
             "transformations": [],
+            "transparent": true,
             "type": "timeseries"
         },
         {
@@ -329,8 +340,8 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
-                "frequency": "5m",
+                "for": "30m",
+                "frequency": "30m",
                 "handler": 1,
                 "message": "Download/Upload bandwidth is below configured threshold.",
                 "name": "Download/Upload alert",
@@ -444,8 +455,12 @@
             "id": 2,
             "options": {
                 "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
+                    "calcs": [
+                        "last",
+                        "min",
+                        "max"
+                    ],
+                    "displayMode": "table",
                     "placement": "bottom"
                 },
                 "tooltip": {
@@ -521,6 +536,7 @@
             ],
             "title": "Download/Upload",
             "transformations": [],
+            "transparent": true,
             "type": "timeseries"
         },
         {
@@ -545,6 +561,7 @@
                         "mode": "thresholds"
                     },
                     "mappings": [],
+                    "max": 128,
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
@@ -618,6 +635,7 @@
             ],
             "title": "Average Ping",
             "transformations": [],
+            "transparent": true,
             "type": "gauge"
         },
         {
@@ -628,6 +646,7 @@
                         "mode": "thresholds"
                     },
                     "mappings": [],
+                    "max": 40960000,
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
@@ -701,6 +720,7 @@
             ],
             "title": "Average Download",
             "transformations": [],
+            "transparent": true,
             "type": "gauge"
         },
         {
@@ -711,6 +731,7 @@
                         "mode": "thresholds"
                     },
                     "mappings": [],
+                    "max": 40960000,
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
@@ -784,7 +805,339 @@
             ],
             "title": "Average Upload",
             "transformations": [],
+            "transparent": true,
             "type": "gauge"
+        },
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 27
+            },
+            "id": 17,
+            "panels": [],
+            "title": "Totals",
+            "type": "row"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "text",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "ms"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 0,
+                "y": 28
+            },
+            "id": 23,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "sum"
+                    ],
+                    "fields": "/^download_elapsed$/",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "8.0.3",
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "hide": false,
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  download_elapsed\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "refId": "Time Downloading",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "download_elapsed"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "results",
+                    "timeColumn": "\"timestamp\"",
+                    "timeColumnType": "timestamptz",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Time Spent Downloading",
+            "transformations": [],
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "text",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "ms"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 6,
+                "y": 28
+            },
+            "id": 25,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "sum"
+                    ],
+                    "fields": "/^upload_elapsed$/",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "8.0.3",
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  upload_elapsed\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "refId": "Time Uploading",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "upload_elapsed"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "results",
+                    "timeColumn": "\"timestamp\"",
+                    "timeColumnType": "timestamptz",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Time Spent Uploading",
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "text",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "decbytes"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 12,
+                "y": 28
+            },
+            "id": 19,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "sum"
+                    ],
+                    "fields": "/^download_bytes$/",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "8.0.3",
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "hide": false,
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  download_bytes\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "refId": "Bytes Downloaded",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "download_bytes"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "results",
+                    "timeColumn": "\"timestamp\"",
+                    "timeColumnType": "timestamptz",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Bytes Downloaded",
+            "transformations": [],
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "text",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "decbytes"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 18,
+                "y": 28
+            },
+            "id": 21,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "sum"
+                    ],
+                    "fields": "/^upload_bytes$/",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "8.0.3",
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  upload_bytes\nFROM results\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1",
+                    "refId": "Bytes Uploaded",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "upload_bytes"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "results",
+                    "timeColumn": "\"timestamp\"",
+                    "timeColumnType": "timestamptz",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Bytes Uploaded",
+            "transformations": [],
+            "transparent": true,
+            "type": "stat"
         }
     ],
     "refresh": "5m",
@@ -802,5 +1155,5 @@
     "timezone": "",
     "title": "Internet Health",
     "uid": "T4Q_O1igz",
-    "version": 33
+    "version": 46
 }

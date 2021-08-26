@@ -25,7 +25,7 @@ RUN python3 -m pip install --upgrade pip \
     && pip install psycopg2
 
 # Add a more frequent timer to Crontab
-RUN echo "*/15    *       *       *       *       /app/run_speedtest.sh" >> /etc/crontabs/root
+RUN echo "*/30    *       *       *       *       /app/run_speedtest.sh" >> /etc/crontabs/root
 
 WORKDIR /app
 
