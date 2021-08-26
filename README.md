@@ -17,9 +17,8 @@ on any machine capable of running Docker. It is compatible with 32-bit systems.
 
 - Database
 
-  ```
     type  |       timestamp        | ping_jitter | ping_latency | download_bandwidth | download_bytes | download_elapsed | upload_bandwidth | upload_bytes | upload_elapsed |     packetloss      |      isp      |  result_id  |    result_url
-  --------+------------------------+-------------+--------------+--------------------+----------------+------------------+------------------+--------------+----------------+---------------------+---------------+-------------+------------------
+  --------|------------------------|-------------|--------------|--------------------|----------------|------------------|------------------|--------------|----------------|---------------------|---------------|-------------|------------------
    result | 2021-07-12 23:56:40+00 |       4.153 |       42.964 |            1948966 |       30263552 |            15000 |          2649820 |     25742208 |           9711 | 0.33444816053511706 | Three Ireland | <result_id> | <link_to_result>
    result | 2021-07-13 00:00:35+00 |       3.743 |       39.684 |            2511049 |       35756160 |            15001 |          3756017 |     48417024 |          13302 |                   0 | Three Ireland | <result_id> | <link_to_result>
    result | 2021-07-13 00:05:53+00 |      12.722 |       28.636 |            3234516 |       33908864 |            10702 |          3105898 |     45029376 |          15000 |                   0 | Three Ireland | <result_id> | <link_to_result>
@@ -34,7 +33,7 @@ on any machine capable of running Docker. It is compatible with 32-bit systems.
    result | 2021-07-13 02:00:36+00 |       5.044 |       37.943 |            3539327 |       52663424 |            15007 |          2711022 |     39677440 |          15013 |  3.3444816053511706 | Three Ireland | <result_id> | <link_to_result>
    result | 2021-07-13 02:15:25+00 |       0.221 |       49.695 |            3335805 |       33282304 |            10016 |          3365187 |     27819392 |           8306 |                   0 | Three Ireland | <result_id> | <link_to_result>
    result | 2021-07-13 02:30:24+00 |       0.063 |       39.834 |            3976865 |       39597184 |             9908 |          3353327 |     22381568 |           6609 |                   0 | Three Ireland | <result_id> | <link_to_result>
-  ```
+
 
 ## Installation/Running
 
